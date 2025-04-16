@@ -1,0 +1,69 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "cppbuild",
+			"label": "C/C++: cl.exe build active file",
+			"command": "cl.exe",
+			"args": [
+				"/Zi",
+				"/EHsc",
+				"/nologo",
+				"/Fe${fileDirname}\\${fileBasenameNoExtension}.exe",
+				"${file}",
+				"/I",
+				"C:\\Program Files (x86)\\Microsoft SDKs\\MPI\\Include",
+				"/link",
+				"C:\\Program Files (x86)\\Microsoft SDKs\\MPI\\Lib\\x64\\msmpi.lib"
+			],
+			"options": {
+				"cwd": "${fileDirname}"
+			},
+			"problemMatcher": [
+				"$msCompile"
+			],
+			"group": "build",
+			"detail": "compiler: cl.exe"
+		},
+		{
+			"label": "Run MPI",
+			"type": "shell",
+			"command": "C:\\Program Files\\Microsoft MPI\\Bin\\mpiexec.exe",
+			"args": [
+				"-n",
+				"4",
+				"${fileDirname}\\${fileBasenameNoExtension}.exe"
+			],
+			"group": "test",
+			"presentation": {
+				"reveal": "always"
+			},
+			"dependsOn": [
+				"C/C++: cl.exe build active file"
+			]
+		},
+		{
+			"type": "cppbuild",
+			"label": "C/C++: gcc.exe build active file",
+			"command": "C:\\msys64\\ucrt64\\bin\\gcc.exe",
+			"args": [
+				"-fdiagnostics-color=always",
+				"-g",
+				"${file}",
+				"-o",
+				"${fileDirname}\\${fileBasenameNoExtension}.exe"
+			],
+			"options": {
+				"cwd": "${fileDirname}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"detail": "compiler: C:\\msys64\\ucrt64\\bin\\gcc.exe"
+		}
+	]
+}
